@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+
+<body>
+    <div class="container">
+        <div id="sender">
+            <input type="text" id="number">
+            <div id="recaptcha-container"></div>
+            <input type="button" id="send" onclick="phoneAuth()" value="send">
+
+        </div>
+
+        <div id="verifier" style="display: none">
+            <input type="text" id="verificationcode" placeholder="OTP code ">
+            <input type="button" onclick="codeverify()" id="verify" value="Verify">
+            <div class="p-conf">Number Verified</div>
+            <div class="n-conf">OTP ERROEr</div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7ATdeu7PNkL1-dnzIBJeygpMvA70mpjY",
+            authDomain: "eechat-4a540.firebaseapp.com",
+            projectId: "eechat-4a540",
+            storageBucket: "eechat-4a540.appspot.com",
+            messagingSenderId: "1025707059477",
+            appId: "1:1025707059477:web:ed0f9c6770a366a06ae11c",
+            measurementId: "G-SNNRXGT61H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+
+
+        function phoneAuth() {
+            var number = document.getElementById('number').value;
+            firebase.auth().signInWithPhoneNumber(number,
+                window.recaptchaVerifier).then(function (confirmationResult) {
+                    window.confirmationResult = confirmationResult;
+                    coderesult = confirmationResult;
+                    document.getElementById('sender').style.display = 'none';
+                    document.getElementById('verifier').style.display = 'block';
+                }).catch(function (error) {
+                    alert(error.message);
+                });
+        }
+
+
+        ﻿
+
+        function codeverify() {
+         
+            var code = document.getElementById('verificationcode').value;
+            coderesult.confirm (code).then(function(){
+                document.getElementsByClassName('p-conf')[0].style.display = 'block';
+                document.getElementsByClassName('n-conf')[0].style.display = 'none';
+                
+            }).catch(function(){
+                document.getElementsByClassName('p-conf')[0].style.display = 'none';
+                document.getElementsByClassName('n-conf')[0].style.display = 'block';
+            })
+        }
+
+
+
+    </script>
+</body>

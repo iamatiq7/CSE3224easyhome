@@ -1,0 +1,113 @@
+﻿@model IEnumerable<projectsd.Models.View.Rooms>
+
+@{
+    var err =  ViewBag.adderr;
+    var dist = ViewBag.uiDist as List<string>;
+    var cnt = ViewBag.count;
+    var fac = ViewBag.fac as List<projectsd.Models.View.Facilities>;
+}
+
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+<h2>
+    My Apartments
+</h2>
+
+<br />
+<br />
+@if(err == 1){
+    <label class="text-danger"><b>There was a error inserting entries</b></label>
+}
+else if(err == 0)
+{
+    <label class="text-success"><b>Created successfully!</b></label>
+    
+}
+
+<br />
+<br />
+
+
+<button type="button" class="fixed-top  btn btn-success rounded" data-bs-toggle="modal" data-bs-target="#myModal"
+        style=" top:20%;left:80%; width:150px">
+    Add
+</button>
+<div align="center">
+
+   @if(cnt != 0){
+    <table class="table table-hover col-8 ">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-secondary   shadow" onclick="location.href='@Url.Action("RentList", "Room", new { roomId = item.id})'">
+                    <th scope="row">Apartment-@item.id</th>
+                    <td>Rents: @item.totalrents</td>
+                    
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    }else{
+        <h1>OOPS!! It seems that you have no ownership...</h1>
+    }
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+
+            @using (Html.BeginForm())
+            {
+               
+                <label for="address" class="form-label mt-4">Address</label>
+                <input type="text" class="form-control" name="address" placeholder="Address">
+    
+                <label class="form-label" for="size">Apartment size</label>           
+                <input type="number" id="size" name="size" class="form-control" />
+                
+                <label class="form-label" for="maxmem">Maximum members</label>           
+                <input type="number" id="maxmem" name="maxmem" class="form-control" />
+                
+                <label class="form-label" for="no">Quantity of rooms</label>           
+                <input type="number" id="no" name="no" class="form-control" />
+                
+                
+                <label class="form-label" for="floor">floor</label>           
+                <input type="number" id="floor" name="floor" class="form-control" />
+               
+               
+                <label for="exampleSelect1" class="form-label mt-4">District</label>
+      <select class="form-select" id="exampleSelect1" name="district">
+        @foreach(var item in dist){
+            <option>@item</option>
+        }
+          
+      </select>
+            <label for="faco" class="form-label mt-4">choose facilities</label>
+          <select multiple="" class="form-select" name="faco" id="faco">
+             @foreach (var item in fac)
+{
+    <option>@item.type</option>
+              
+}
+          </select>
+           
+                
+                <br />
+
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" />
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model projectsd.Models.View.Owner
+@{
+    
+    ViewBag.Title = "Posts";
+}
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2>Posted rents</h2>
+<br />
+
+<div class="col-md-10">
+    
+    <div class="row">
+        
+        <div class="row">
+
+            
+
+            @foreach (var item in Model.myroomids)
+            {
+                <div class="col-lg-4  col-md-12 mb-4">
+                <div class="card hover-zoom">
+                    <div class="bg-warning hover-zoom "style="height:100px">
+
+                    </div>
+                    <div class="card-body">
+                        <span>@Html.ActionLink("Post-" + item, "Details", "Rents", new { id = item }, null)</span>
+
+
+                    </div>
+                </div>
+                </div>
+
+            }
+
+
+
+
+
+
+            <!--add-->
+            <div class="col-lg-2 col-md-12  mb-4">
+                <div class="card hover-zoom">
+
+                    <div class="card-body">
+
+                        <a href="#"><i class=" display-2 bi bi-plus"></i></a>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    </div>

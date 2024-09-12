@@ -1,0 +1,96 @@
+﻿@model IEnumerable<projectsd.Models.View.Requests>
+
+
+@{
+    var cnt = ViewBag.rqcnt;
+}
+
+
+ <br />
+<br /><br /><br /><br /><br />
+<div class="d-flex flex-row" >
+    <h2 class="col-md-7">Sent Requests</h2>
+  @if (cnt != 0){  <p class="badge bg-dark p-3" align="right">Total Requests sent: @cnt</p>}
+</div>
+ @if (cnt != 0)
+{
+   <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="d-flex flex-column">
+       @foreach (var item in Model)
+       {
+            <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Rent: Rent-00<span>@item.ID</span></h5>
+              
+              <p class="card-text">Sent: @item.date</p>
+              @if (item.status == "accepted")
+              {
+                  <p class="card-text ">Status: <span class="text-success">@item.status</span></p>
+
+              }
+              else if (item.status == "rejected")
+              {
+                  <p class="card-text ">Status: <span class="text-danger">@item.status</span></p>
+
+              }
+              else
+              {
+                  <p class="card-text ">Status: <span class="text-warning-emphasis">@item.status</span></p>
+
+              }
+          </div>
+          <div class="card-footer" align="right">
+            @if(item.status == "pending"){
+                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Remove", "Request", new { reqid = item.reqid})'">Cancel</button>
+            }
+            else if (item.status == "rejected")
+            {
+                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Remove", "Request", new { reqid = item.reqid})'">Delete</button>
+                
+            }
+            @if (item.status == "accepted")
+            {
+               <button type="button" class="btn btn-success" onclick="location.href = '@Url.Action("Confirm", "Request", new { reqid = item.reqid})'">Confirm</button>
+                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Remove", "Request", new { reqid = item.reqid})'">Delete</button>
+             
+            }
+         </div>
+        </div>
+       }
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+}
+else
+{
+    <p class="fs-3 col-md-7 text-danger">You have no requests pending</p>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

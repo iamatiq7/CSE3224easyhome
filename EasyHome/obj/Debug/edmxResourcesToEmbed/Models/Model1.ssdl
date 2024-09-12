@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="efdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Auth">
+    <Key>
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="pass" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="bank">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="amount" Type="int" />
+  </EntityType>
+  <EntityType Name="chrooms">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="p1" Type="int" />
+    <Property Name="p2" Type="int" />
+    <Property Name="time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Districts">
+    <Key>
+      <PropertyRef Name="DistrictId" />
+    </Key>
+    <Property Name="DistrictId" Type="int" Nullable="false" />
+    <Property Name="DivisionId" Type="int" Nullable="false" />
+    <Property Name="DistrictName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="bn_name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="lat" Type="varchar" MaxLength="15" />
+    <Property Name="lon" Type="varchar" MaxLength="15" />
+    <Property Name="url" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Division">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+    </Key>
+    <Property Name="DivisionId" Type="int" Nullable="false" />
+    <Property Name="DivisionName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="bn_name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="url" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FacilitiesForRoom">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="facilitiesId" Type="int" />
+    <Property Name="RoomId" Type="int" />
+  </EntityType>
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+    <Property Name="icon" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="senderid" Type="int" />
+    <Property Name="recieverid" Type="int" />
+    <Property Name="text" Type="varchar" MaxLength="255" />
+    <Property Name="time" Type="datetime" />
+    <Property Name="stat" Type="varchar" MaxLength="255" />
+    <Property Name="chroom" Type="int" />
+  </EntityType>
+  <EntityType Name="Owners">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="senderId" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="amount" Type="int" />
+    <Property Name="recieverid" Type="int" />
+  </EntityType>
+  <EntityType Name="Rentealseats">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoomId" Type="int" />
+    <Property Name="TenantId" Type="int" />
+    <Property Name="startdate" Type="date" />
+    <Property Name="expirydate" Type="date" />
+    <Property Name="price" Type="int" />
+    <Property Name="posted" Type="date" />
+    <Property Name="pic" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="rentrev">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="review" Type="varchar" MaxLength="255" />
+    <Property Name="reveiewerid" Type="int" />
+    <Property Name="rentid" Type="int" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rentid" Type="int" />
+    <Property Name="date" Type="datetime" />
+    <Property Name="senderid" Type="int" />
+    <Property Name="stat" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="reviewofrent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rentid" Type="int" />
+    <Property Name="reviewerid" Type="int" />
+    <Property Name="reviewid" Type="int" />
+    <Property Name="review" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Reviewofuser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="reviewid" Type="int" />
+    <Property Name="reviewerid" Type="int" />
+    <Property Name="review" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Reviews">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="review" Type="varchar" MaxLength="255" />
+    <Property Name="date" Type="date" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="255" />
+    <Property Name="noofrooms" Type="int" />
+    <Property Name="maxmembers" Type="int" />
+    <Property Name="atfloor" Type="int" />
+    <Property Name="sqft" Type="int" />
+    <Property Name="zone" Type="varchar" MaxLength="255" />
+    <Property Name="upazilaid" Type="int" />
+    <Property Name="ownerid" Type="int" />
+    <Property Name="upname" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tenants">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Upazilas">
+    <Key>
+      <PropertyRef Name="UpazilaId" />
+    </Key>
+    <Property Name="UpazilaId" Type="int" Nullable="false" />
+    <Property Name="DistrictId" Type="int" Nullable="false" />
+    <Property Name="UpazilaName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="bn_name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="url" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userrev">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="review" Type="varchar" MaxLength="255" />
+    <Property Name="reveiewerid" Type="int" />
+    <Property Name="userid" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
+    <Property Name="Rating" Type="int" />
+    <Property Name="Cell" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="255" />
+    <Property Name="OwnerId" Type="int" />
+    <Property Name="Tenantid" Type="int" />
+    <Property Name="AccId" Type="int" />
+    <Property Name="pic" Type="varchar" MaxLength="255" />
+    <Property Name="VID" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK__chrooms__p1__24134F1B">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="chrooms" Type="Self.chrooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="chrooms">
+        <PropertyRef Name="p1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__chrooms__p2__25077354">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="chrooms" Type="Self.chrooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="chrooms">
+        <PropertyRef Name="p2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Districts__Divis__5090EFD7">
+    <End Role="Division" Type="Self.Division" Multiplicity="1" />
+    <End Role="Districts" Type="Self.Districts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="Districts">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Facilitie__facil__2D47B39A">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="0..1" />
+    <End Role="FacilitiesForRoom" Type="Self.FacilitiesForRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FacilitiesForRoom">
+        <PropertyRef Name="facilitiesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Facilitie__RoomI__2E3BD7D3">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="FacilitiesForRoom" Type="Self.FacilitiesForRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FacilitiesForRoom">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__chroom__25FB978D">
+    <End Role="chrooms" Type="Self.chrooms" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chrooms">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="chroom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__rentrev__rentid__381A47C8">
+    <End Role="Rentealseats" Type="Self.Rentealseats" Multiplicity="0..1" />
+    <End Role="rentrev" Type="Self.rentrev" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rentealseats">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rentrev">
+        <PropertyRef Name="rentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__rentrev__reveiew__3726238F">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="rentrev" Type="Self.rentrev" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rentrev">
+        <PropertyRef Name="reveiewerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Requests__sender__12E8C319">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="senderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Upazilas__Distri__5555A4F4">
+    <End Role="Districts" Type="Self.Districts" Multiplicity="1" />
+    <End Role="Upazilas" Type="Self.Upazilas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="DistrictId" />
+      </Principal>
+      <Dependent Role="Upazilas">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__userrev__reveiew__3AF6B473">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="userrev" Type="Self.userrev" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="userrev">
+        <PropertyRef Name="reveiewerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__userrev__userid__3BEAD8AC">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="userrev" Type="Self.userrev" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="userrev">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chats_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="senderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chats_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="recieverid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="recieverid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="senderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rentealseats_Rooms">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="Rentealseats" Type="Self.Rentealseats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rentealseats">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rentealseats_Tenants">
+    <End Role="Tenants" Type="Self.Tenants" Multiplicity="0..1" />
+    <End Role="Rentealseats" Type="Self.Rentealseats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tenants">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rentealseats">
+        <PropertyRef Name="TenantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Requests_Rentealseats">
+    <End Role="Rentealseats" Type="Self.Rentealseats" Multiplicity="0..1" />
+    <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rentealseats">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="rentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reviewofrent_Reviews">
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="0..1" />
+    <End Role="reviewofrent" Type="Self.reviewofrent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviews">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reviewofrent">
+        <PropertyRef Name="reviewid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reviewofrent_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="reviewofrent" Type="Self.reviewofrent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reviewofrent">
+        <PropertyRef Name="reviewerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviewofuser_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Reviewofuser" Type="Self.Reviewofuser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Reviewofuser">
+        <PropertyRef Name="reviewerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviewofuser_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Reviewofuser" Type="Self.Reviewofuser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Reviewofuser">
+        <PropertyRef Name="reviewerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Reviewofuser">
+    <End Role="Reviewofuser" Type="Self.Reviewofuser" Multiplicity="1" />
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Reviewofuser">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rooms_Owners">
+    <End Role="Owners" Type="Self.Owners" Multiplicity="0..1" />
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Owners">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="ownerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Auth">
+    <End Role="Auth" Type="Self.Auth" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Auth">
+        <PropertyRef Name="email" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_bank">
+    <End Role="bank" Type="Self.bank" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="AccId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Owners">
+    <End Role="Owners" Type="Self.Owners" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Owners">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Tenants">
+    <End Role="Tenants" Type="Self.Tenants" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tenants">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Tenantid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="efdbModelStoreContainer">
+    <EntitySet Name="Auth" EntityType="Self.Auth" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bank" EntityType="Self.bank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chrooms" EntityType="Self.chrooms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Districts" EntityType="Self.Districts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FacilitiesForRoom" EntityType="Self.FacilitiesForRoom" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Owners" EntityType="Self.Owners" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rentealseats" EntityType="Self.Rentealseats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rentrev" EntityType="Self.rentrev" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reviewofrent" EntityType="Self.reviewofrent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reviewofuser" EntityType="Self.Reviewofuser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tenants" EntityType="Self.Tenants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Upazilas" EntityType="Self.Upazilas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userrev" EntityType="Self.userrev" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__chrooms__p1__24134F1B" Association="Self.FK__chrooms__p1__24134F1B">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="chrooms" EntitySet="chrooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK__chrooms__p2__25077354" Association="Self.FK__chrooms__p2__25077354">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="chrooms" EntitySet="chrooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Districts__Divis__5090EFD7" Association="Self.FK__Districts__Divis__5090EFD7">
+      <End Role="Division" EntitySet="Division" />
+      <End Role="Districts" EntitySet="Districts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Facilitie__facil__2D47B39A" Association="Self.FK__Facilitie__facil__2D47B39A">
+      <End Role="Facility" EntitySet="Facility" />
+      <End Role="FacilitiesForRoom" EntitySet="FacilitiesForRoom" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Facilitie__RoomI__2E3BD7D3" Association="Self.FK__Facilitie__RoomI__2E3BD7D3">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="FacilitiesForRoom" EntitySet="FacilitiesForRoom" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__chroom__25FB978D" Association="Self.FK__Messages__chroom__25FB978D">
+      <End Role="chrooms" EntitySet="chrooms" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__rentrev__rentid__381A47C8" Association="Self.FK__rentrev__rentid__381A47C8">
+      <End Role="Rentealseats" EntitySet="Rentealseats" />
+      <End Role="rentrev" EntitySet="rentrev" />
+    </AssociationSet>
+    <AssociationSet Name="FK__rentrev__reveiew__3726238F" Association="Self.FK__rentrev__reveiew__3726238F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="rentrev" EntitySet="rentrev" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Requests__sender__12E8C319" Association="Self.FK__Requests__sender__12E8C319">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Upazilas__Distri__5555A4F4" Association="Self.FK__Upazilas__Distri__5555A4F4">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Upazilas" EntitySet="Upazilas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__userrev__reveiew__3AF6B473" Association="Self.FK__userrev__reveiew__3AF6B473">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="userrev" EntitySet="userrev" />
+    </AssociationSet>
+    <AssociationSet Name="FK__userrev__userid__3BEAD8AC" Association="Self.FK__userrev__userid__3BEAD8AC">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="userrev" EntitySet="userrev" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chats_Users" Association="Self.FK_Chats_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chats_Users1" Association="Self.FK_Chats_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Users" Association="Self.FK_Payments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Users1" Association="Self.FK_Payments_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rentealseats_Rooms" Association="Self.FK_Rentealseats_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Rentealseats" EntitySet="Rentealseats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rentealseats_Tenants" Association="Self.FK_Rentealseats_Tenants">
+      <End Role="Tenants" EntitySet="Tenants" />
+      <End Role="Rentealseats" EntitySet="Rentealseats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requests_Rentealseats" Association="Self.FK_Requests_Rentealseats">
+      <End Role="Rentealseats" EntitySet="Rentealseats" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reviewofrent_Reviews" Association="Self.FK_reviewofrent_Reviews">
+      <End Role="Reviews" EntitySet="Reviews" />
+      <End Role="reviewofrent" EntitySet="reviewofrent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reviewofrent_Users" Association="Self.FK_reviewofrent_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="reviewofrent" EntitySet="reviewofrent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviewofuser_Users" Association="Self.FK_Reviewofuser_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reviewofuser" EntitySet="Reviewofuser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviewofuser_Users1" Association="Self.FK_Reviewofuser_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reviewofuser" EntitySet="Reviewofuser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Reviewofuser" Association="Self.FK_Reviews_Reviewofuser">
+      <End Role="Reviewofuser" EntitySet="Reviewofuser" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rooms_Owners" Association="Self.FK_Rooms_Owners">
+      <End Role="Owners" EntitySet="Owners" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Auth" Association="Self.FK_Users_Auth">
+      <End Role="Auth" EntitySet="Auth" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_bank" Association="Self.FK_Users_bank">
+      <End Role="bank" EntitySet="bank" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Owners" Association="Self.FK_Users_Owners">
+      <End Role="Owners" EntitySet="Owners" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Tenants" Association="Self.FK_Users_Tenants">
+      <End Role="Tenants" EntitySet="Tenants" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

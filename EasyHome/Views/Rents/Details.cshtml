@@ -1,0 +1,363 @@
+﻿@model projectsd.Models.View.Rent
+
+@{
+    ViewBag.Title = "Details";
+    var err = ViewBag.err;
+    var bag = ViewBag.userType;
+    var hasReq = ViewBag.hasReq;
+    var dateReq = ViewBag.dateReq;
+    var cnt = ViewBag.rentReqCnt;
+    var tid = (int?)Session["tid"];
+
+}
+
+<style>
+    .h:hover {
+        background-color: rgb(180, 180, 180);
+        width:50%;
+    }
+</style>
+
+<br /><br />
+<br /><br />
+<br />
+<br /><br />
+@if (err == "err")
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>Oh snap!</strong> There was some error sending request.
+    </div>
+
+}
+<div>
+
+    <div class=" coverpic my-2"><img src="~/Content/images/coverpic/@Model.pic" alt="Girl in a jacket" width="700" height="600"></div>
+
+</div>
+
+
+
+
+
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+
+            <br /><br />
+            <br /><br />
+            <br /><br />
+            <br /><br />
+            <br />
+            <div class="row">
+                <div class="col-md-7 col-md-push-5 ">
+                    <h3 class="text-dark border-dark"> Details</h3>
+                    <div class="mx-4 my-3">
+                        @if (Model.isAvaliable)
+                        {
+                            <p>Status: <span class="text-success font-weight-bold">Available</span></p>
+                        }
+                        else
+                        {
+
+                            <p>Status: <span class="text-danger font-weight-bold">Rented</span></p>
+                        }
+                        <p>Rooms: @Model.noofrooms</p>
+                        <p>Members: @Model.needmembers<span>/</span>@Model.maxmembers</p>
+                        <p>Rooms: @Model.noofrooms</p>
+                        <p>Address: <span class="font-weight-bold">@Model.Location</span></p>
+                        <p>Size: @Model.size<span> sqft</span></p>
+                        <p>Starts from: <span class="text-info">@Model.startDate</span></p>
+                    </div>
+                    @if (bag != "owner")
+                    {
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Review</button>
+
+                    }
+                    else
+                    {
+                        <button type="button" onclick="location.href = '@Url.Action("DeleteRent", "Buttons")'" class="btn btn-danger">Delete</button>
+
+                    }
+                    <br />
+                    <br />
+                    <h3 class="text-dark mt-3 ">Facilities</h3>
+
+                    @foreach (var item in Model.facilities)
+                    {
+                        <div class="my-3 d-flex flex-row facilities">
+                            <div class="mx-3 text-dark icon">@Html.Raw(item.icon)</div>
+                            <div class="type text-dark">@item.type</div>
+                        </div>
+                    }
+
+                    @if (bag == "owner" && cnt != 0)
+                    {
+                        <br />
+                        <br />
+                        <br />
+                        <h3 class="text-dark ">Requests</h3>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="" style="
+  overflow-y: scroll; height:500px; /* Enable horizontal scrolling */">
+
+                                        <!-- Card list -->
+                                        @foreach (var item in Model.reqs)
+                                        {
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="~/Content/images/coverpic/@item.sender.pic" alt="Avatar" class="mr-3" style="height: 100px; width: 100px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = item.sender.id})'">
+                                                        <div>
+                                                            <h3 class="card-title mb-0">@item.sender.name</h3>
+                                                            <p class="my-2">
+                                                                Sent - @item.date
+                                                            </p>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-footer  my-2 mx-2" align="right">
+                                                <button type="button" class="btn btn-success" onclick="location.href = '@Url.Action("Accept", "Request", new { reqid = @item.reqid})'">Accept</button>
+                                                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Reject", "Request", new { reqid = item.reqid})'">Reject</button>
+                                            </div>
+
+
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else if (bag == "owner" && cnt <= 0)
+                    {
+                        <br />
+                        <br />
+                        <br />
+                        <h3 class="text-dark ">Requests</h3>
+
+                        <h4 class="text-dark ">No requests to show</h4>
+
+                    }
+
+                </div>
+
+
+                <div class="col-md-4 fixed-top col-md-pull-8 bg-dark font-weight-bold  rounded text-white" style="height: 300px; margin-left: 65%; margin-top: 10%;">
+                    <div class="booking-form my-4">
+                        @if (bag != "owner")
+                        {
+                            if (Model.isAvaliable)
+                            {
+
+
+
+                                if (hasReq != "has")
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-7">
+
+                                            <span class="form-label">Check In</span>
+                                            <label>@Model.startDate</label>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 fs-3">
+                                            Price : @Model.price
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <div class="form-btn align-content-end">
+                                        <button onclick="location.href= '@Url.Action("Requests", "Rents", new { rentid = @Model.ID})'" class="btn btn-success">Request</button>
+                                    </div>
+
+                                }
+                                else
+                                {
+
+                                    <p align="center" class="font-weight-bold fs-3 my-5">You have requested for this rent</p><br />
+                                    <p align="center" class="font-weight-bold fs-3 my-5">Request date - @dateReq</p><br />
+
+                                }
+                            }else if (!Model.isAvaliable)
+                            {
+
+                                <p class="font-weight-bold">Rented By</p><br />
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/Content/images/coverpic/@Model.tenant.pic" alt="Avatar" class="mr-3" style="height: 100px; width: 100px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = Model.tenant.id})'">
+                                            <div>
+                                                <h3 class="card-title mb-0 text-dark">
+
+                                                    @if (Model.tenant.tenantId == tid)
+                                                    {
+                                                        <span>You</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@Model.tenant.name</span>
+                                                    }
+
+                                                </h3>
+                                                <h4 class="my-2">
+                                                    <span class=" px-3  badge rounded-pill bg-primary">
+                                                        <i class="bi bi-star"></i> @Model.tenant.rating
+                                                    </span>
+                                                </h4>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                      <div class="card-footer  my-2 mx-2" align="right">
+                                                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("TerminateOwn", "Buttons", new { rentId = @Model.ID})'">Terminate</button>                                             
+                                     </div>
+
+                            }
+
+                        }
+                        else
+                        {
+                            if (!Model.isAvaliable)
+                            {
+
+                                <p class="font-weight-bold">Rented By</p><br />
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/Content/images/coverpic/@Model.tenant.pic" alt="Avatar" class="mr-3" style="height: 100px; width: 100px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = Model.tenant.id})'">
+                                            <div>
+                                                <h3 class="card-title mb-0 text-dark">@Model.tenant.name</h3>
+                                                <h4 class="my-2">
+                                                    <span class=" px-3  badge rounded-pill bg-primary">
+                                                        <i class="bi bi-star"></i> @Model.tenant.rating
+                                                    </span>
+                                                </h4>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                      <div class="card-footer  my-2 mx-2" align="right">
+                                                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("TerminateOwn", "Buttons", new { rentId = @Model.ID})'">Terminate</button>                                             
+                                     </div>
+
+                            }
+                            else
+                            {
+                                <p align="center" class="font-weight-bold fs-3 my-5">You own this</p><br />
+                                <p align="center" class="font-weight-bold fs-3 my-5">Total requests : <span>@Model.reqs.Count()</span></p><br />
+
+                            }
+
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h3 class=" mt-4 border-dark">Hosted by</h3>
+<div class="card h" onclick="location.href= '@Url.Action("Details", "User", new { id = Model.owner.id})'">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <img src="~/Content/images/coverpic/@Model.owner.pic" alt="Avatar" class="mr-3" style="height: 100px; width: 100px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = Model.owner.id})'">
+            <div>
+                <h3 class="card-title mb-0">@Model.owner.name</h3>
+                <h4 class="my-2">
+                    <span class=" px-3  badge rounded-pill bg-primary">
+                        <i class="bi bi-star"></i> @Model.owner.rating
+                    </span>
+                </h4>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div class="row gutters-sm">
+    <div class="col-sm-12 mb-3">
+
+        <i> <h3 class="card-title">Reviews from others</h3></i>
+
+        @if (Model.revs.Count() <= 0)
+        {
+            <h5>No one reviewed this post</h5>
+        }
+        else
+        {
+            foreach (var item in Model.revs)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="~/Content/images/coverpic/@item.reviewerpic" alt="Avatar" class="mr-3" style="height: 70px; width: 70px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = @item.reviewerid })'">
+                            <div>
+                                <h4 class="card-title mb-0">@item.reviewerName</h4>
+                                <p class="fs-6 my-2">
+                                    @item.reviewtext
+                                </p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            }
+        }
+    </div>
+</div>
+  </div>
+</div>
+
+                    }
+            </div>
+        </div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+
+            @using (Html.BeginForm())
+            {
+
+
+                <label for="review" class="form-label mt-4">Review</label>
+                <input class="form-control" name="rev" id="review" spellcheck="false" />
+
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" />
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>

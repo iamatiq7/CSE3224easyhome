@@ -1,0 +1,111 @@
+﻿@model IEnumerable<projectsd.Models.View.ChatRooms>
+
+
+@{
+    var cnt = ViewBag.msg;
+
+}
+
+
+
+
+
+
+
+
+<style>
+    .h:hover {
+        background-color: rgb(180, 180, 180);
+    }
+    .j {
+        color:white;
+        background-color: black;
+    }
+    .j:hover {
+        color:black;
+        background-color: rgb(210, 210, 210);
+    }
+
+</style>
+
+
+<br />
+<br />
+<br />
+<br />
+<br /><br />
+<br />
+<h3 class="text-dark ">Chats</h3>
+
+
+
+
+<div class="container">
+    
+        @if (cnt > 0)
+{
+    foreach (var item in Model)
+    {
+        if (item.stat == "seen")
+        {
+            <div class="row">
+                <div class=" mb-3 col-md-3">
+
+                </div>
+
+                <div class="card h mb-3 col-md-7" onclick="location.href= '@Url.Action("Inbox", "Chat", new { chid = item.chatNo  })'">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="~/Content/images/coverpic/@item.recieverpic" alt="Avatar" class="mr-3" style="height: 100px; width: 100px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = 20})'">
+                            <div>
+                                <h3 class="card-title mb-0">@item.recieverName</h3>
+                                <p class="my-2">
+                                   @item.senderName : @item.text
+                                </p>
+                                <p class="my-2">
+                                    Sent - @item.time
+                                </p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+                        <div class="row">
+                <div class=" mb-3 col-md-3">
+
+                </div>
+
+                    <div class="card j mb-3 col-md-7" onclick="location.href= '@Url.Action("Inbox", "Chat",new { chid = item.chatNo  })'">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img src="~/Content/images/coverpic/@item.recieverpic" alt="Avatar" class="mr-3" style="height: 100px; width: 100px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = 20})'">
+                                <div>
+                                    <h3 class="card-title mb-0">@item.recieverName</h3>
+                                    <p class="my-2">
+                                        @item.senderName: @item.text
+                                    </p>
+                                    <p class="my-2">
+                                        Sent - @item.time
+                                    </p>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+                }
+             }
+        }
+        else
+        {
+            <p class="col-md-7 fs-3 "  >No chats to show</p>
+        }        
+    
+
+</div>

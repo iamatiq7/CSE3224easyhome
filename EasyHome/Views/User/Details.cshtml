@@ -1,0 +1,274 @@
+﻿@model projectsd.Models.View.User
+
+@{
+
+    //details of visitor mode
+    ViewBag.Title = "Details";
+    var type = ViewBag.userType;
+    var uin = (int?)Session["user"];
+    var state = Session["log"];
+
+}
+
+<style>
+ .h:hover {
+        background-color: rgb(180, 180, 180);
+    }
+</style>
+<h2>Details</h2>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="main-body">
+
+
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3 fixed-top" style="top:25%">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="~/Content/images/coverpic/@Model.pic" alt="Admin" class="rounded-circle"
+                                 width="150" height="150">
+                            <div class="mt-3">
+                                <h4>@Model.name</h4>
+
+                                <div class="mb-3">
+                                    @if (Model.isOwner)
+                                    { <span class="badge rounded-pill px-3 py-2 bg-primary">Owner</span>
+                                    }
+                                    @if (Model.isTenant)
+                                    { <span class="badge rounded-pill px-3 py-2 bg-primary">Tenant</span>
+                                    }
+                                </div>
+                                @if (Model.id != uin)
+                                {
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#myModal">
+                                    Rate
+                                </button>
+
+    <button class="btn btn-outline-primary" onclick="location.href= '@Url.Action("Chat", "Buttons")'">Message</button>
+                                }
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                                <h5>
+                                Rating <span class="fs-4 px-3 mx-4 badge rounded-pill bg-primary">
+                                    <i class="bi bi-star"></i> @Model.rating
+                                </span>
+                            </h5>
+                           
+                           
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-8" style="left:30%">
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.name
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.email
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Mobile</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.cell
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">NID/BID</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.vid
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.address
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Gender</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.gender
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                           <button class="btn btn-info rounded" onclick="location.href = '@Url.Action("ShowVid", "Buttons")'">Show Identity Document</button>
+                        </div>
+                        <hr>
+                       
+                    </div>
+                </div>
+
+                <div class="row gutters-sm">
+                    <div class="col-sm-12 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i>
+                                    <h3 class="card-title">Renting at</h3>
+                                </i>
+                                @if (Model.rents.Count() <= 0 || state != "in")
+                                {
+                                    <h5>Not renting anywhere</h5>
+                                }
+                                else
+                                {
+
+                                    foreach (var item in Model.rents)
+                                    {
+                                        <div class="card mb-3 h" onclick="location.href= '@Url.Action("Details", "Rents", new { id = @item.ID })'">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="~/Content/images/coverpic/@item.pic" alt="Avatar" class="mr-3" style="height: 70px; width: 70px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "Rents", new { id = @item.ID })'">
+                                                    <div>
+                                                        <h4 class="card-title mb-0">Rent-00<span>@item.ID</span></h4>
+                                                        <p class="fs-6 my-2">
+                                                            From - @item.startDate
+                                                        </p>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      <div class="card-footer  my-2 mx-2" align="right">
+                                                <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Terminate", "Buttons", new { rentId = @item.ID})'">Terminate</button>                                             
+                                     </div>
+
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+
+                <div class="row gutters-sm">
+                    <div class="col-sm-12 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i>
+                                    <h3 class="card-title">Reviews from others</h3>
+                                </i>
+                                @if (Model.revs.Count() <= 0)
+                                {
+                                    <h5>No one reviewed you</h5>
+                                }
+                                else { 
+                                foreach (var item in Model.revs)
+                                {
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <img src="~/Content/images/coverpic/@item.reviewerpic" alt="Avatar" class="mr-3" style="height: 70px; width: 70px; border-radius: 50%; " onclick="location.href= '@Url.Action("Details", "User", new { id = @item.reviewerid })'">
+                                                <div>
+                                                    <h4 class="card-title mb-0">@item.reviewerName</h4>
+                                                    <p class="fs-6 my-2">
+                                                        @item.reviewtext
+                                                    </p>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+
+
+
+                                }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+
+            @using (Html.BeginForm())
+            {
+
+                <label for="rating" class="form-label mt-4">Rate</label>
+                <select class="form-select" name="rating" id="rating">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                <label for="review" class="form-label mt-4">Review</label>
+                <input class="form-control" id="review" name="review" rows="3" spellcheck="false"/>
+
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" />
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>

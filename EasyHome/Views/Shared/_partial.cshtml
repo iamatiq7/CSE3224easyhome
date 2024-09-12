@@ -1,0 +1,33 @@
+﻿
+    @foreach (var items in Model)
+    {
+        if (items.sender.name != "me")
+        {
+            <li class="media">
+                <img class="mr-3 rounded-circle"
+                     src="~/Content/images/coverpic/@items.sender.pic"
+                     style="height: 50px; width: 50px; border-radius: 50%;"
+                     alt="Sender Avatar" />
+                <div class="media-body">
+                    <div class="bg-dark text-white rounded py-2 px-3 mb-2">
+                        <p class="text-small mb-0 text-muted">Sent: @items.time</p>
+                        <p class="mb-0">@items.text</p>
+                    </div>
+                </div>
+            </li>
+        }
+        else
+        {
+
+            <li class="media">
+
+                <div class="media-body">
+                    <div class="bg-light text-dark rounded py-2 px-3 mb-2">
+                        <p class="text-small mb-0 text-muted">Received: @items.time</p>
+                        <p class="mb-0">@items.text</p>
+                    </div>
+                </div>
+            </li>
+        }
+    }
+

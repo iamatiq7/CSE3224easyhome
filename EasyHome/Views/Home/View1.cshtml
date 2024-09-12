@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View1</title>
+</head>
+<body>        
+    <div class="container">
+            <div id="sender">
+                <input type="text" id="number">
+                <div id="recaptcha-container"></div>
+                <input type="button" id="send" value="send">
+
+            </div>
+
+            <div id="verifier" style="display: none">
+                <input type="text" id="verificationcode" placeholder="OTP code ">
+                <input type="button" id="verify" value="Verify">
+                <div class="p-conf">Number Verified</div>
+                <div class="n-conf">OTP ERROE</div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyA7ATdeu7PNkL1-dnzIBJeygpMvA70mpjY",
+                authDomain: "eechat-4a540.firebaseapp.com",
+                projectId: "eechat-4a540",
+                storageBucket: "eechat-4a540.appspot.com",
+                messagingSenderId: "1025707059477",
+                appId: "1:1025707059477:web:ed0f9c6770a366a06ae11c",
+                measurementId: "G-SNNRXGT61H"
+            };
+            firebase.initializeApp(firebaseConfig);
+            render();
+            function render() {
+                window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+                recaptchaVerifier.render();
+            }
+
+
+
+        </script>
+    
+</body>
+</html>

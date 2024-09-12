@@ -1,0 +1,105 @@
+﻿@model IEnumerable<projectsd.Models.View.Rent>
+
+@{
+    var err = ViewBag.addrentListerr;
+    var id = ViewBag.thisRoomId;
+    var cnt = ViewBag.count;
+
+}
+
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+<h2>
+    Tolets You posted for Apartment-@id
+</h2>
+
+<br />
+<br />
+@if (err == 1)
+{
+    <label class="text-danger"><b>There was a error inserting entries</b></label>
+}
+else if (err == 0)
+{
+    <label class="text-success"><b>Created successfully!</b></label>
+
+}
+
+<br />
+<br />
+
+
+<button type="button" class="fixed-top  btn btn-success rounded" data-bs-toggle="modal" data-bs-target="#myModal"
+        style=" top:20%;left:80%; width:150px">
+    Add
+</button>
+<button type="button" class="fixed-top  btn btn-danger rounded"
+        onclick="location.href = '@Url.Action("DeleteApertment", "Buttons")'"
+        style=" top:30%;left:80%; width:150px">
+    Delete Apartment
+</button>
+<div align="center">
+
+    @if (cnt > 0)
+    {
+        <table class="table table-hover col-8 ">
+            <tbody>
+                @foreach (var item in Model)
+{
+    <tr class="table-secondary   shadow" onclick="location.href='@Url.Action("Details", "Rents", new { id = item.ID})'">
+        <th scope="row">Rent-@item.ID</th>
+        <td>Requests: @item.totalReq</td>
+       
+                </tr>
+                   
+}
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1>No rents to show...</h1>
+    }
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+
+            @using (Html.BeginForm())
+   {
+    <label class="form-label">Add rent for <b>Room-<span name="roomId">@id</span></b></label>
+                <br />
+
+                            <label class="form-label" for="price">Price</label>
+                <input type="number" id="price" name="price" class="form-control" />
+                <br />
+                <label for="start">Starts from</label>
+
+                            <input type="date" name="start"
+                                   value="2018-07-22"
+                                   min="2018-01-01" max="2035-12-31">
+                            <br />
+
+                <label for="propic" class="my-2 form-label mt-4">Photo</label>
+                            <input class="form-control" accept="image/png, image/jpeg" type="file" id="propic" name="propic">
+                            <br />
+
+                <br />
+
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" />
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+
+}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<projectsd.Models.View.Messages>
+
+@{
+    
+    var title = Session["chatname"];
+    
+}
+
+
+<br /><br />
+<br />
+<br /><br />
+
+
+<div class="container" >
+    <div class="row mt-5">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header d-flex flex-row justify-content-between ">
+                    <h4>@title</h4>
+                    <button onclick="location.reload();" class="btn btn-info mx-lg-3">REFresh</button>
+                </div>
+                <div class="card-body" style="overflow-y: scroll; height: 400px;">
+                    <!--here goes-->
+                    <ul class="list-unstyled" >
+                        @foreach (var items in Model)
+                        {
+                            if (items.sender.name != "me")
+                            {
+                                <li class="media">
+                                    <img class="mr-3 rounded-circle"
+                                         src="~/Content/images/coverpic/@items.sender.pic"
+                                         style="height: 50px; width: 50px; border-radius: 50%;"
+                                         
+                                         onclick="location.href= '@Url.Action("Details", "User", new { id = items.sender.id})'"
+                                         alt="Sender Avatar" />
+                                    <div class="media-body">
+                                        <div class="bg-dark text-white rounded py-2 px-3 mb-2">
+                                            <p class="text-small mb-0 text-muted">Sent: @items.time</p>
+                                            <p class="mb-0">@items.text</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+
+                                <li class="media">
+
+                                    <div class="media-body">
+                                        <div class="bg-light text-dark rounded py-2 px-3 mb-2">
+                                            <p class="text-small mb-0 text-muted">Received: @items.time</p>
+                                            <p class="mb-0">@items.text</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group">
+                            <input type="text"
+                                   class="form-control"
+                                   name="msg"
+                                   placeholder="Type a message..." />
+                            <div class="input-group-append">
+                                <input type="submit" class="btn btn-primary" value="Send">
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

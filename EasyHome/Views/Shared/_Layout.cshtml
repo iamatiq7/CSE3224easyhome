@@ -1,0 +1,91 @@
+﻿@{
+
+    var log = Session["log"];
+    var user = Session["user"];
+    var pic = Session["pic"] ;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <nav class="fixed-top navbar navbar-expand navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">EasyRent</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarColor01">
+                <ul class="navbar-nav   me-auto">
+
+                    <a class="nav-link" title="Home" href="@Url.Action("Index", "Rents")"><i class="mx-2 bi bi-house" style="font-size:20px;"></i></a>
+
+
+
+
+                    @if (log == "in")
+{
+
+    <a class="nav-link" title="Requests" href="@Url.Action("Index", "Request")"><i class="bi bi-file-ruled-fill mx-2" style="font-size:20px;"></i></a>
+    <a class="nav-link" title="Messages" href="@Url.Action("Index", "Chat")"><i class="bi bi-chat-right-text-fill mx-2 " style="font-size:20px;"></i></a>
+
+                        <a class="nav-link" title="Apartments" href="@Url.Action("Index", "Room")"><i class="bi bi-buildings mx-2" style="font-size:20px;"></i></a>
+                        
+                         <a class="nav-link" title="Logout" href="@Url.Action("Logout", "User")"><i class="bi bi-power rounded bg-danger px-3 py-2 mx-2"  style="font-size:20px;"></i></a>
+
+
+                    }
+
+
+                </ul>
+
+
+
+                @if (log != "in")
+                {
+
+
+                    <div class="d-flex">
+
+                        <button class="btn btn-primary" onclick="location.href = '@Url.Action("Login", "User")'">log in</button>
+                        <button class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "User")'">Sign up</button>
+                    </div>
+                }
+                else
+                {
+
+                    <img src="~/Content/images/coverpic/@pic" class="rounded-circle" style="height:50px; width:50px" onclick="location.href= '@Url.Action("Details", "User", new { id = user})'">
+                }
+
+
+            </div>
+        </div>
+    </nav>
+
+    <div id="world" class="container body-content">
+        @RenderBody()
+        @RenderSection("scripts", required: false)
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - EasyRent.inc</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿
+@{
+   
+    var vid = Session["vid"];
+}
+
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowVid</title>
+</head>
+<body>
+    <button class="btn btn-warning" onclick="location.href = '@Url.Action("Details", "User",new{id = (int?)Session["visit"]})'">Go Back</button>
+    <div> 
+        <img src="~/Content/images/vid/@vid" alt="Italian Trulli">
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Reset Password</h3>
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="form-group">
+                            <label for="email">Check your email for OTP</label>
+                        </div>
+                        <div>
+                            <label for="code">OTP</label>
+                            <input type="text" class="form-control" id="code" name="code" required>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-block" value="Verify">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
